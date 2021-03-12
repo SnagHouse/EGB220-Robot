@@ -1,18 +1,9 @@
 #include "MotorDriver.h"
-#include "arduino.h"
-#include "avr/io.h"
+#include <avr/io.h>
 
-MotorDriver::MotorDriver(char reg, int pin, float speed, bool start)
-    : m_pin(pin)
+MotorDriver::MotorDriver(IOPin pin, float speed, bool start)
+  : m_pin(pin)
 {
-  switch (reg)
-  {
-    case 'b':
-    case 'd':
-  }
-
-  PORTD &= 0;
-
   SetSpeed(speed);
   if (start)
     Start();
@@ -47,8 +38,9 @@ float MotorDriver::GetSpeed() const
   return m_speed;
 }
 
-
 void MotorDriver::ApplyPinState()
 {
-  analogWrite(m_pin, int(m_speed * 255));
+  m_pin.Write(m_isActive);
+
+  // No PWM yet
 }

@@ -1,12 +1,12 @@
 #ifndef MotorDriver_h__
 #define MotorDriver_h__
 
+#include "IOPin.h"
+
 class MotorDriver
 {
 public:
-  MotorDriver(uint8_t &port, int pin, float speed = 1, bool start = false);
-  MotorDriver(uint16_t &port, int pin, float speed = 1, bool start = false);
-  MotorDriver(uint32_t &port, int pin, float speed = 1, bool start = false);
+  MotorDriver(IOPin pin, float speed = 1, bool start = false);
 
   /**
    * Start the motor.
@@ -40,14 +40,9 @@ protected:
    **/
   void ApplyPinState();
 
-  union
-  {
-    uint32_t port;
-  }
-
   bool  m_isActive = false;
   float m_speed    = 1;
-  int   m_pin      = -1;
+  IOPin m_pin;
 };
 
 #endif
