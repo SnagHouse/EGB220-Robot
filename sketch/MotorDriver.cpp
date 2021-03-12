@@ -1,7 +1,7 @@
 #include "MotorDriver.h"
 #include <avr/io.h>
 
-MotorDriver::MotorDriver(IOPin pin, float speed, bool start)
+MotorDriver::MotorDriver(DigitalPin pin, float speed, bool start)
   : m_pin(pin)
 {
   SetSpeed(speed);

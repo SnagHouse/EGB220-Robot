@@ -1,12 +1,12 @@
 #ifndef MotorDriver_h__
 #define MotorDriver_h__
 
-#include "IOPin.h"
+#include "Pin.h"
 
 class MotorDriver
 {
 public:
-  MotorDriver(IOPin pin, float speed = 1, bool start = false);
+  MotorDriver(DigitalPin pin, float speed = 1, bool start = false);
 
   /**
    * Start the motor.
@@ -42,7 +42,7 @@ protected:
 
   bool  m_isActive = false;
   float m_speed    = 1;
-  IOPin m_pin;
+  DigitalPin m_pin;
 };
 
 #endif

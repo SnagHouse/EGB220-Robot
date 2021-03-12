@@ -1,14 +1,14 @@
 #include "Pin.h"
 #include "avr/io.h"
 
-Pin::Pin(uint8_t pin, Register inputReg, Register outputReg, Register directionReg)
+DigitalPin::DigitalPin(uint8_t pin, Register inputReg, Register outputReg, Register directionReg)
   : m_inputReg(inputReg)
   , m_outputReg(outputReg)
   , m_directionReg(directionReg)
   , m_pin(pin)
 {}
 
-Pin::Pin(uint8_t pin, char registerCode)
+DigitalPin::DigitalPin(uint8_t pin, char registerCode)
   : m_inputReg(PINB)
   , m_outputReg(PORTB)
   , m_directionReg(DDRB)
@@ -39,19 +39,19 @@ Pin::Pin(uint8_t pin, char registerCode)
   }
 }
 
-bool Pin::DigitalRead()
+bool DigitalPin::Read()
 {
   m_directionReg.Write(m_pin, true); // Set to an input pin
   m_inputReg.Read(m_pin);            // Read the pin value
 }
 
-void Pin::DigitalWrite(bool high)
+void DigitalPin::Write(bool high)
 {
   m_directionReg.Write(m_pin, true); // Set to an output pin
   m_outputReg.Write(m_pin, high);    // Write the pin state
 }
 
-bool Pin::IsOutput()
+bool DigitalPin::IsOutput()
 {
   return m_directionReg.Read(m_pin);
 }
