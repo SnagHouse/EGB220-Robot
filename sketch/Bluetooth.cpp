@@ -20,12 +20,9 @@ int Bluetooth::read(void *pBuffer, int maxLength)
   super::listen();
   if (super::available())
   {
-    super::
   }
 }
 
 bool Bluetooth::isConnected() const
 {
 }
-
-

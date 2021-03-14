@@ -1,7 +1,6 @@
 // #include "MotorDriver.h"
 #include "avr/io.h"
-
-
+#include "List.h"
 
 // MotorDriver leftMotor('b', 0);
 // MotorDriver rightMotor('d', 1);
@@ -23,6 +22,14 @@ void loop() {
   // DDRD  &= 0;
   // DDRB  |= (1 << 7); 
   // DDRD  |= (1 << 0);
+
+  List<int> myList;
+  myList.add(0);
+  myList.add(1);
+
+  for (int val : myList) {
+    Serial.write(val);
+  }
 
   int delay1 = 10;
   int delay2 = 2;
