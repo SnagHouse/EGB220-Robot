@@ -2,7 +2,7 @@
 
 static Bluetooth *g_pListening = nullptr;
 
-Bluetooth::Bluetooth(int rx, int tx, int baud = 9600)
+Bluetooth::Bluetooth(int rx, int tx, int baud)
   : SoftwareSerial(rx, tx)
   , m_connected(false)
 {}

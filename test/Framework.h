@@ -8,13 +8,11 @@ int  Tests_Add(char const * name, std::function<void()> func);
 void Tests_Fail(char const * message, char const * file, int line);
 bool Tests_Call(std::function<bool()> func);
 
-#define Test_Assert(condition) Tests_Call([&]() {\
+#define Test_Assert(condition)\
   if (!(condition)) {\
     Tests_Fail("Assertion Failed: " #condition, __FILE__, __LINE__);\
-    return false;\
-  }\
-  return true;\
-})
+    return;\
+  }
 
 #define Test(name)\
 void name();\

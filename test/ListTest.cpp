@@ -12,6 +12,7 @@ Test(List_ConstructDefault)
 Test(List_ConstructCapacity)
 {
   List<int> list(10);
+  int a = utilMin(10, 11);
   Test_Assert(list.data() != nullptr);
   Test_Assert(list.capacity() == 10);
   Test_Assert(list.size() == 0);
@@ -27,7 +28,7 @@ Test(List_Add)
 
 
   l.add(20);
-  Test_Assert(l.size() == 1);
+  Test_Assert(l.size() == 2);
   Test_Assert(l.at(0) == 10);
   Test_Assert(l.size() == 2);
   Test_Assert(l.at(1) == 20);

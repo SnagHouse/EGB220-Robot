@@ -1,58 +1,33 @@
 // #include "MotorDriver.h"
+#include "Commands.h"
 #include "avr/io.h"
-#include "List.h"
 
 // MotorDriver leftMotor('b', 0);
 // MotorDriver rightMotor('d', 1);
 
+Commands commands;
+
+int someParameter = 0;
+
+void doSomething()
+{
+  char temp[50];
+  sprintf(temp,"someParameter is %d\n", someParameter);
+  Serial.write(temp);
+}
+
 void setup() {
- // leftMotor.Start();
- // rightMotor.Start();
- // leftMotor.SetSpeed(0.5);
- // rightMotor.SetSpeed(0.5);
-
-  //B7 = DDRB7;
+  Serial.begin(9600);
   
+  commands.addVariable("someParameter", &someParameter);
+  commands.addCommand("someCommand", doSomething);
 
- 
+  commands.set<int>("someParameter", 1);
+  commands.call("someCommand");
+  commands.set<int>("someParameter", 10);
+  commands.call("someCommand");
 }
 
 void loop() {
-  // DDRB  &= 0; 
-  // DDRD  &= 0;
-  // DDRB  |= (1 << 7); 
-  // DDRD  |= (1 << 0);
 
-  List<int> myList;
-  myList.add(0);
-  myList.add(1);
-
-  for (int val : myList) {
-    Serial.write(val);
-  }
-
-  int delay1 = 10;
-  int delay2 = 2;
-
-  PORTB |= (1 << 7);
-  PORTD |= (1 << 0);
-  delay(delay2);
-  PORTB = 0;
-  PORTD = 0;
-  delay(delay1 - delay2);
-  
-  // delay(500);
-
-  // PORTB =0;
-  // PORTD =0;
-
-  
-  // PORTD |= (1 << 0); 
-
-  // delay(700);
-  // PORTB =0;
-  // PORTD =0; 
-  //delay(500);
-
-  // analogWrite(4,500);
 }

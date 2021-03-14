@@ -12,7 +12,12 @@ struct TestResult
   string line;
 };
 
-static vector<pair<string, std::function<void()>>> g_allTests;
+static vector<pair<string, std::function<void()>>>& GetTests()
+{
+  static vector<pair<string, std::function<void()>>> allTests;
+  return allTests;
+}
+
 static vector<pair<string, TestResult>> g_failed;
 
 static TestResult g_lastTest;
@@ -21,7 +26,7 @@ void PrintResult(TestResult const & result);
 
 int Tests_Add(const char *name, std::function<void()> func)
 {
-  g_allTests.push_back({ name, func });
+  GetTests().push_back({ name, func });
   return 1;
 }
 
@@ -43,13 +48,13 @@ int Tests_Run()
 
   size_t numPassed = 0;
   size_t testIndex = 0;
-  size_t testCount = g_allTests.size();
-  for (const pair<string, std::function<void()>> &test : g_allTests)
+  size_t testCount = GetTests().size();
+  for (const pair<string, std::function<void()>> &test : GetTests())
   {
     ++testIndex;
     g_lastTest = TestResult(); // Clear last result
     test.second(); // Run the test
-    printf("[%lld/%lld] %s: %s\n", testIndex, testCount, test.first.c_str(), g_lastTest.success ? "SUCCESS" : "FAILED");
+    printf("[%lld/%lld][%s] : %s\n", testIndex, testCount, g_lastTest.success ? "SUCCESS" : "FAILED", test.first.c_str());
     numPassed += g_lastTest.success;
     if (!g_lastTest.success)
     { // Print reason

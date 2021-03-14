@@ -19,5 +19,10 @@ project "Test"
   includedirs { "../sketch/" } 
 
 -- Project Files
-  files { "**.cpp", "**.h", "**.inl" , "**.natvis" }
+  files { "**.cpp", "**.h", "**.inl", "**.natvis" }
+
+  -- Source files containing code we want to test
+  files { "../sketch/List.h" }
+  files { "../sketch/Str.h", "../sketch/Str.cpp" }
+  files { "../sketch/Commands.h", "../sketch/Commands.cpp" }
 
